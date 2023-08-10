@@ -1,4 +1,4 @@
-namespace Api;
+namespace TeslaRent.API;
 
 public class WeatherForecast
 {
