@@ -11,14 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var orgins = builder.Configuration["origins"].Split(";");
+var origins = builder.Configuration["origins"].Split(";");
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(defaultCorsPolicy,
-        policyBuilder =>
+        corsPolicyBuilder =>
         {
-            policyBuilder
-                .WithOrigins(orgins)
+            corsPolicyBuilder
+                .WithOrigins(origins)
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -36,6 +36,8 @@ if (app.Environment.IsProduction() == false)
 
     app.UseDeveloperExceptionPage();
 }
+
+app.UseCors(defaultCorsPolicy);
 
 app.UseHttpsRedirection();
 
