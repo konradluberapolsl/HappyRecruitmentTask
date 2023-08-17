@@ -8,5 +8,5 @@ public class CarModel
     public string Thumbnail { get; set; }
     public int Horsepower { get; set; }
     public int Range { get; set; }
-    public int Acceleration { get; set; }
+    public double Acceleration { get; set; }
 }
