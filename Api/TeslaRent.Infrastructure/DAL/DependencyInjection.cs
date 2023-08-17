@@ -13,6 +13,8 @@ public static class DependencyInjection
         services.AddDbContext<TeslaRentDbContext>(options => options.UseSqlServer(connectionString));
         
         services.AddScoped<IDbContext>(provider => provider.GetRequiredService<TeslaRentDbContext>());
+        services.AddScoped<TeslaRentDbContextInitializer>();
+        
         return services;
     }
 }

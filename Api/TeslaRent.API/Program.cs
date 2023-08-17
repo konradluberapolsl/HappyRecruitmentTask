@@ -1,4 +1,5 @@
 using TeslaRent.Infrastructure;
+using TeslaRent.Infrastructure.DAL;
 
 const string defaultCorsPolicy = "CorsPolicy";
 
@@ -35,6 +36,14 @@ if (app.Environment.IsProduction() == false)
     app.UseSwaggerUI();
 
     app.UseDeveloperExceptionPage();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var initializer = scope.ServiceProvider.GetRequiredService<TeslaRentDbContextInitializer>();
+        
+        await initializer.InitDatabase();
+        await initializer.SeedDatabase();
+    }
 }
 
 app.UseCors(defaultCorsPolicy);
