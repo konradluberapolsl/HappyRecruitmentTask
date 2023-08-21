@@ -58,7 +58,6 @@ public class TeslaRentDbContextInitializer
             {
                 new ()
                 {
-                    Status = CarStatus.Available,
                     Model = teslaS,
                     Mileage = 200000,
                     ProductionDate = new DateTime(2021, 01, 01),
