@@ -12,5 +12,5 @@ public class CarStatusHistory
     public CarStatus Status { get; set; }
     
     public DateTime FromDate { get; set; }
-    public DateTime ToDate { get; set; }
+    public DateTime? ToDate { get; set; }
 }
