@@ -24,6 +24,24 @@ public class ReservationController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ReservationDto> GetReservationById(int id)
     {
-        return await _reservationService.GetReservation(id);
+        return await _reservationService.GetReservationDtoById(id);
+    }
+    
+    [HttpGet("user/{userId}")]
+    public async Task<IEnumerable<ReservationDto>> GetReservationsByUserId(int userId)
+    {
+        return await _reservationService.GetUserReservations(userId);
+    }
+    
+    [HttpPost("/activate")]
+    public async Task<ReservationDto> FinishReservation(int reservationId)
+    {
+        return await _reservationService.ActivateReservation(reservationId);
+    }
+
+    [HttpPost("/finish")]
+    public async Task<ReservationDto> FinishReservation(FinishReservationRequest request)
+    {
+        return await _reservationService.FinishReservation(request);
     }
 }
