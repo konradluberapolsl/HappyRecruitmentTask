@@ -18,13 +18,13 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: ./Api/tests/TeslaRent.Application.UnitTests
+        working-directory: ./Api/TeslaRent.Application.UnitTests
 
       - name: Build
         run: dotnet build --no-restore
-        working-directory: ./Api/tests/TeslaRent.Application.UnitTests
+        working-directory: ./Api/TeslaRent.Application.UnitTests
         
       - name: Test
         run: dotnet test --no-build --verbosity normal
-        working-directory: ./Api/tests/TeslaRent.Application.UnitTests
+        working-directory: ./Api/TeslaRent.Application.UnitTests
 
