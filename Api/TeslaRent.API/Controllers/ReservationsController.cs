@@ -6,11 +6,11 @@ namespace TeslaRent.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ReservationController : ControllerBase
+public class ReservationsController : ControllerBase
 {
     private readonly IReservationService _reservationService;
 
-    public ReservationController(IReservationService reservationService)
+    public ReservationsController(IReservationService reservationService)
     {
         _reservationService = reservationService;
     }
