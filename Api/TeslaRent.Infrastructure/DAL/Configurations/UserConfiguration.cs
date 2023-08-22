@@ -4,9 +4,9 @@ using TeslaRent.Domain.Entities;
 
 namespace TeslaRent.Infrastructure.DAL.Configurations;
 
-public class CarConfiguration : IEntityTypeConfiguration<Car>
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<Car> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
     }
 }

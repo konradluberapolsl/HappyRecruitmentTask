@@ -1,3 +1,4 @@
+using TeslaRent.Application.Common;
 using TeslaRent.Infrastructure;
 using TeslaRent.Infrastructure.DAL;
 
@@ -25,7 +26,9 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services
+    .AddInfrastructure(builder.Configuration)
+    .AddApplication();
 
 var app = builder.Build();
 

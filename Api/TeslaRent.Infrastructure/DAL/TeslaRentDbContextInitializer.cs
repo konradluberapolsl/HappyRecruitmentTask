@@ -31,7 +31,10 @@ public class TeslaRentDbContextInitializer
                     Acceleration = 3.20,
                     Horsepower = 691,
                     Range = 634,
-                    Thumbnail = "https://www.marinoperformancemotors.com/imagetag/13948/16/l/Used-2022-Tesla-Model-S-Plaid.jpg"
+                    Thumbnail = "https://www.marinoperformancemotors.com/imagetag/13948/16/l/Used-2022-Tesla-Model-S-Plaid.jpg",
+                    CostPerDay = 50,
+                    CostPerWeek = 320,
+                    CostPerMonth = 1400
                 },
                 new()
                 {
@@ -40,7 +43,10 @@ public class TeslaRentDbContextInitializer
                     Acceleration = 2.1,
                     Horsepower = 1020,
                     Range = 600,
-                    Thumbnail = "https://www.marinoperformancemotors.com/imagetag/13948/16/l/Used-2022-Tesla-Model-S-Plaid.jpg"
+                    Thumbnail = "https://www.marinoperformancemotors.com/imagetag/13948/16/l/Used-2022-Tesla-Model-S-Plaid.jpg",
+                    CostPerDay = 80,
+                    CostPerWeek = 500,
+                    CostPerMonth = 2240
                 },
             };
 
@@ -58,7 +64,6 @@ public class TeslaRentDbContextInitializer
             {
                 new ()
                 {
-                    Status = CarStatus.Available,
                     Model = teslaS,
                     Mileage = 200000,
                     ProductionDate = new DateTime(2021, 01, 01),
@@ -67,6 +72,32 @@ public class TeslaRentDbContextInitializer
             };
 
             await _dbContext.Cars.AddRangeAsync(cars);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        if (!_dbContext.Locations.Any())
+        {
+            var locations = new List<Location>()
+            {
+                new()
+                {
+                    Name = "Palma Airport"
+                },
+                new()
+                {
+                    Name = "Palma City Center"
+                },
+                new()
+                {
+                    Name = "Alcudia"
+                },
+                new()
+                {
+                    Name = "Manacor"
+                },
+            };
+
+            await _dbContext.Locations.AddRangeAsync(locations);
             await _dbContext.SaveChangesAsync();
         }
     }

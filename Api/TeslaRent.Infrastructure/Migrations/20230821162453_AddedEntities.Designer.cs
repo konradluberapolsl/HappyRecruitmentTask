@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeslaRent.Infrastructure.DAL;
 
@@ -11,9 +12,11 @@ using TeslaRent.Infrastructure.DAL;
 namespace TeslaRent.Infrastructure.Migrations
 {
     [DbContext(typeof(TeslaRentDbContext))]
-    partial class TeslaRentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230821162453_AddedEntities")]
+    partial class AddedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +70,7 @@ namespace TeslaRent.Infrastructure.Migrations
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ToDate")
+                    b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -89,15 +92,6 @@ namespace TeslaRent.Infrastructure.Migrations
 
                     b.Property<double>("Acceleration")
                         .HasColumnType("float");
-
-                    b.Property<decimal>("CostPerDay")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CostPerMonth")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CostPerWeek")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Horsepower")
                         .HasColumnType("int");
@@ -142,7 +136,7 @@ namespace TeslaRent.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("Available");
 
-                    b.Property<DateTime?>("ToDate")
+                    b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -177,9 +171,6 @@ namespace TeslaRent.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -189,31 +180,20 @@ namespace TeslaRent.Infrastructure.Migrations
                     b.Property<int>("EndLocationId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("EndMileage")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("StartLocationId")
                         .HasColumnType("int");
 
-                    b.Property<double>("StartMileage")
-                        .HasColumnType("float");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("EndLocationId");
 
@@ -292,12 +272,6 @@ namespace TeslaRent.Infrastructure.Migrations
 
             modelBuilder.Entity("TeslaRent.Domain.Entities.Reservation", b =>
                 {
-                    b.HasOne("TeslaRent.Domain.Entities.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TeslaRent.Domain.Entities.Location", "EndLocation")
                         .WithMany()
                         .HasForeignKey("EndLocationId")
@@ -315,8 +289,6 @@ namespace TeslaRent.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Car");
 
                     b.Navigation("EndLocation");
 

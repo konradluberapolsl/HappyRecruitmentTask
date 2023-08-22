@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeslaRent.Infrastructure.DAL;
 
@@ -11,9 +12,11 @@ using TeslaRent.Infrastructure.DAL;
 namespace TeslaRent.Infrastructure.Migrations
 {
     [DbContext(typeof(TeslaRentDbContext))]
-    partial class TeslaRentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230821213444_AddedCarToReservationXD")]
+    partial class AddedCarToReservationXD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,15 +92,6 @@ namespace TeslaRent.Infrastructure.Migrations
 
                     b.Property<double>("Acceleration")
                         .HasColumnType("float");
-
-                    b.Property<decimal>("CostPerDay")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CostPerMonth")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CostPerWeek")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Horsepower")
                         .HasColumnType("int");
@@ -189,24 +183,15 @@ namespace TeslaRent.Infrastructure.Migrations
                     b.Property<int>("EndLocationId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("EndMileage")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("StartLocationId")
                         .HasColumnType("int");
 
-                    b.Property<double>("StartMileage")
-                        .HasColumnType("float");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
