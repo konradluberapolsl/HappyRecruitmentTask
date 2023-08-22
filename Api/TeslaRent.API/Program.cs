@@ -32,13 +32,22 @@ builder.Services
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error-development");
+}
+else
+{
+    app.UseExceptionHandler("/error");
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsProduction() == false)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    app.UseDeveloperExceptionPage();
+    //app.UseDeveloperExceptionPage();
 
     using (var scope = app.Services.CreateScope())
     {
