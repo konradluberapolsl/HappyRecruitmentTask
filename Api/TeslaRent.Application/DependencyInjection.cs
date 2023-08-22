@@ -26,6 +26,7 @@ public static class DependencyInjection
         services.AddTransient<ICarService, CarService>();
         services.AddTransient<IAvailabilityService, AvailabilityService>();
         services.AddTransient<IReservationService, ReservationService>();
+        services.AddTransient<ICalculationService, CalculationService>();
 
         return services;
     }
