@@ -31,10 +31,10 @@ public class AvailabilityService : IAvailabilityService
                 (cl, cs) => new {location = cl, status = cs})
             .Where(combined =>
                 combined.location.LocationId == locationId 
-                && (combined.location.ToDate == null || combined.location.ToDate.Value >= endDate) 
+                && !combined.location.ToDate.HasValue
                 && combined.location.FromDate <= startDate
                 && combined.status.Status == CarStatus.Available
-                && (combined.status.ToDate == null || combined.status.ToDate.Value >= endDate) 
+                && (!combined.status.ToDate.HasValue || combined.status.ToDate.Value >= endDate) 
                 && combined.status.FromDate <= startDate
             )
             .Select(c => c.location.Car)
@@ -77,7 +77,7 @@ public class AvailabilityService : IAvailabilityService
             .AnyAsync(s =>
                 s.CarId == carId
                 && s.LocationId == locationId
-                && (!s.ToDate.HasValue || s.ToDate.Value >= endDate)
+                && !s.ToDate.HasValue
                 && s.FromDate <= startDate);
     }
 }

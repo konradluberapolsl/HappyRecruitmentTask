@@ -47,7 +47,7 @@ public class ReservationService : IReservationService
             CarId = request.CarId,
             StartMileage = car.Mileage,
             StartLocationId = request.StartLocationId,
-            EndLocationId = request.StartLocationId
+            EndLocationId = request.EndLocationId
         };
         
         await _dbContext.Reservations.AddAsync(reservation);
@@ -55,8 +55,11 @@ public class ReservationService : IReservationService
         await _dbContext.SaveChangesAsync(CancellationToken.None);
 
         await _carService.ReserveCar(reservation.CarId, reservation.StartDate, reservation.EndDate);
-        
-        // TODO: Change car location
+
+        if (reservation.StartLocationId != reservation.EndLocationId)
+        {
+            await _carService.ChangeCarLocation(reservation.CarId, reservation.EndLocationId, reservation.StartDate);
+        }
         
         return _mapper.Map<ReservationDto>(reservation);
     }
