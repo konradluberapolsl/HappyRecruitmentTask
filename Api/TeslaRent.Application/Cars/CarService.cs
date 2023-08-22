@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TeslaRent.Application.Cars.Abstraction;
 using TeslaRent.Application.Cars.Models;
 using TeslaRent.Application.Common.Abstraction;
+using TeslaRent.Application.Location;
 using TeslaRent.Application.Location.Models;
 using TeslaRent.Domain.Entities;
 using TeslaRent.Domain.Enums;
@@ -22,20 +23,10 @@ public class CarService : ICarService
         _mapper = mapper;
         _appDateTime = appDateTime;
     }
-
-    public async Task<CarDto> GetCarById(int id)
+    
+    public async Task<CarDto> GetCarDtoById(int id)
     {
-        var car = await _dbContext
-            .Cars
-            .Include(c => c.CarModelId)
-            .FirstOrDefaultAsync(c => c.Id == id);
-
-        if (car == null)
-        {
-            throw new Exception("Car not found");
-        }
-
-        return _mapper.Map<CarDto>(car);
+        return _mapper.Map<CarDto>(await GetCarById(id));
     }
 
     public async Task<CarDto> CreateCar(CreateCarRequest request)
@@ -100,7 +91,7 @@ public class CarService : ICarService
         {
             throw new Exception("Car is not available");
         }
-        
+
         var status = new CarStatusHistory()
         {
             CarId = carId,
@@ -108,8 +99,6 @@ public class CarService : ICarService
             FromDate = fromDate,
             ToDate = toDate
         };
-
-        // if current status range is bigger than new status range to date can not be null and I need to create third entity with old to date
 
         var complementaryStatus = new CarStatusHistory()
         {
@@ -130,6 +119,67 @@ public class CarService : ICarService
         return _mapper.Map<CarStatusDto>(status);
     }
 
+    public async Task ChangeCarLocation(int carId, int newLocationId, DateTime fromDate)
+    {
+        var currentLocation = await GetCurrentCarLocation(carId);
+
+        if (currentLocation.LocationId == newLocationId)
+        {
+            return;
+        }
+
+        if (currentLocation.FromDate > fromDate)
+        {
+            throw new Exception("Can not change location");
+        }
+
+        currentLocation.ToDate = fromDate;
+
+        var newLocation = new CarLocationHistory()
+        {
+            CarId = carId,
+            LocationId = newLocationId,
+            FromDate = fromDate,
+            ToDate = null
+        };
+
+        _dbContext.CarLocationHistory.Update(currentLocation);
+        await _dbContext.CarLocationHistory.AddAsync(newLocation);
+        
+        await _dbContext.SaveChangesAsync(CancellationToken.None);
+    }
+    
+    public async Task<CarDto> UpdateCarMileage(int carId, double newMileage)
+    {
+        var car = await GetCarById(carId);
+
+        if (car.Mileage > newMileage)
+        {
+            throw new Exception("Odometer cannot be reversed");
+        }
+
+        car.Mileage = newMileage;
+
+        _dbContext.Cars.Update(car);
+        await _dbContext.SaveChangesAsync(CancellationToken.None);
+        
+        return _mapper.Map<CarDto>(car);
+    }
+
+    private async Task<Car> GetCarById(int id)
+    {
+        var car = await _dbContext
+            .Cars
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (car == null)
+        {
+            throw new Exception("Car not found");
+        }
+
+        return car;
+    }
+
     private async Task<ICollection<CarStatusHistory>> GetStatusAtTimeRange(int carId, DateTime fromDate, DateTime toDate)
     {
         if (toDate < fromDate)
@@ -146,5 +196,27 @@ public class CarService : ICarService
             .ToListAsync();
         
         return statuses;
+    }
+
+    private async Task<CarLocationHistory> GetCurrentCarLocation(int carId)
+    {
+        var locations = await _dbContext.CarLocationHistory
+            .Where(s => 
+                s.CarId == carId
+                && !s.ToDate.HasValue
+                )
+            .ToListAsync();
+
+        if (!locations.Any())
+        {
+            throw new Exception("Car in nowhere");
+        }
+        
+        if (locations.Count > 1)
+        {
+            throw new Exception("Car is in more then one place at the time");
+        }
+        
+        return locations.Single();
     }
 }
