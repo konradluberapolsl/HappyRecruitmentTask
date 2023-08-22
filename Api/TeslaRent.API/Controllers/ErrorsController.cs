@@ -26,6 +26,9 @@ public class ErrorsController : ControllerBase
     [Route("/error")]
     public IActionResult HandleError()
     {
-        return Problem();
+        var exception =
+            HttpContext.Features.Get<IExceptionHandlerFeature>()!.Error;
+        
+        return Problem(title: exception.Message);
     }
 }
