@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaRent.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaRent.Application", "TeslaRent.Application\TeslaRent.Application.csproj", "{FD0D4493-8F6D-4DBF-9AC5-CB29B7B5F183}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AE1BF7B-00C1-4DC0-ADBC-8561DE117435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaRent.Application.UnitTests", "TeslaRent.Application.UnitTests\TeslaRent.Application.UnitTests.csproj", "{FC6150EF-2A3D-4954-A2FE-3DA407511216}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{FD0D4493-8F6D-4DBF-9AC5-CB29B7B5F183}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD0D4493-8F6D-4DBF-9AC5-CB29B7B5F183}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD0D4493-8F6D-4DBF-9AC5-CB29B7B5F183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6150EF-2A3D-4954-A2FE-3DA407511216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6150EF-2A3D-4954-A2FE-3DA407511216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6150EF-2A3D-4954-A2FE-3DA407511216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6150EF-2A3D-4954-A2FE-3DA407511216}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FC6150EF-2A3D-4954-A2FE-3DA407511216} = {0AE1BF7B-00C1-4DC0-ADBC-8561DE117435}
 	EndGlobalSection
 EndGlobal
