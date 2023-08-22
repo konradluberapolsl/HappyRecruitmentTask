@@ -23,19 +23,10 @@ public class CarService : ICarService
         _mapper = mapper;
         _appDateTime = appDateTime;
     }
-
-    public async Task<CarDto> GetCarById(int id)
+    
+    public async Task<CarDto> GetCarDtoById(int id)
     {
-        var car = await _dbContext
-            .Cars
-            .FirstOrDefaultAsync(c => c.Id == id);
-
-        if (car == null)
-        {
-            throw new Exception("Car not found");
-        }
-
-        return _mapper.Map<CarDto>(car);
+        return _mapper.Map<CarDto>(await GetCarById(id));
     }
 
     public async Task<CarDto> CreateCar(CreateCarRequest request)
@@ -156,6 +147,37 @@ public class CarService : ICarService
         await _dbContext.CarLocationHistory.AddAsync(newLocation);
         
         await _dbContext.SaveChangesAsync(CancellationToken.None);
+    }
+    
+    public async Task<CarDto> UpdateCarMileage(int carId, double newMileage)
+    {
+        var car = await GetCarById(carId);
+
+        if (car.Mileage > newMileage)
+        {
+            throw new Exception("Odometer cannot be reversed");
+        }
+
+        car.Mileage = newMileage;
+
+        _dbContext.Cars.Update(car);
+        await _dbContext.SaveChangesAsync(CancellationToken.None);
+        
+        return _mapper.Map<CarDto>(car);
+    }
+
+    private async Task<Car> GetCarById(int id)
+    {
+        var car = await _dbContext
+            .Cars
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (car == null)
+        {
+            throw new Exception("Car not found");
+        }
+
+        return car;
     }
 
     private async Task<ICollection<CarStatusHistory>> GetStatusAtTimeRange(int carId, DateTime fromDate, DateTime toDate)
