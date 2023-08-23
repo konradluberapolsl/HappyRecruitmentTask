@@ -12,6 +12,7 @@ const TopBar = () => {
                     </Typography>
                     <Link to={'/login'}>Login</Link>
                     <Link to={'/register'}>Register</Link>
+                    <Link to={'/reservations'}>Your reservations</Link>
                 </Toolbar>
             </AppBar>
         </Box>
