@@ -6,4 +6,7 @@ export interface CarModelDto {
     horsepower: number;
     range: number;
     acceleration: number;
+    costPerDay: number;
+    costPerWeek: number;
+    costPerMonth: number;
 }
