@@ -132,11 +132,11 @@ public class ReservationService : IReservationService
         return _mapper.Map<ReservationDto>(reservation);
     }
 
-    public async Task<IEnumerable<ReservationDto>> GetUserReservations(int userId)
+    public async Task<IEnumerable<SimpleReservationDto>> GetUserReservations(int userId)
     {
         return await _dbContext.Reservations
             .Where(r => r.UserId == userId)
-            .ProjectTo<ReservationDto>(_mapper.ConfigurationProvider)
+            .ProjectTo<SimpleReservationDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
     }
 

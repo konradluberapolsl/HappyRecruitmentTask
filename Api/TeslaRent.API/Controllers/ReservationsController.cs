@@ -28,7 +28,7 @@ public class ReservationsController : ControllerBase
     }
     
     [HttpGet("user/{userId}")]
-    public async Task<IEnumerable<ReservationDto>> GetReservationsByUserId(int userId)
+    public async Task<IEnumerable<SimpleReservationDto>> GetReservationsByUserId(int userId)
     {
         return await _reservationService.GetUserReservations(userId);
     }
