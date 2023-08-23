@@ -25,7 +25,7 @@ const ReservationListItem = ({reservation}: ReservationListItemProps) => {
             <TableCell>{reservation.endLocationName}</TableCell>
             <TableCell>{ReservationStatus[reservation.status]}</TableCell>
             <TableCell align="center">
-                <Button variant="contained" onClick={() => navigate('/')}>Details</Button>
+                <Button variant="contained" onClick={() => navigate(`${reservation.id}`)}>Details</Button>
             </TableCell>
         </TableRow>
     );
