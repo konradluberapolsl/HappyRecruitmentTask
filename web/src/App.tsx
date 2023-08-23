@@ -5,6 +5,7 @@ import Root from "./routes/Root/Root";
 import Login from "./routes/Login/Login";
 import Register from "./routes/Register/Register";
 import Reservations from "./routes/Resrvations/Reservations";
+import ReservationDetails from "./routes/ReservationDetails/ReservationDetails";
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/reservations" element={<Reservations />} />
+                <Route path="/reservations/:reservationId" element={<ReservationDetails />} />
             </Routes>
         </BrowserRouter>
     );
