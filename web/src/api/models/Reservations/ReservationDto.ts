@@ -1,4 +1,4 @@
-import {LocationDto} from "../Locations/LocationService";
+import {LocationDto} from "../Locations/LocationDto";
 import {UserDto} from "../Users/UserDto";
 import {CarDto} from "../Cars/CarDto";
 import {ReservationStatus} from "../../../constants/Reservations";

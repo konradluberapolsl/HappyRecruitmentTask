@@ -1,4 +1,4 @@
-import {LocationDto} from "../Locations/LocationService";
+import {LocationDto} from "../Locations/LocationDto";
 
 export interface CarLocationDto {
     id: number;
