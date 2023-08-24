@@ -10,18 +10,23 @@ import Title from "../../components/Common/Title";
 import ReservationListItem from "../../components/Reservations/ReservationListItem";
 import {Container, Paper, TableContainer} from "@mui/material";
 import {SimpleReservationDto} from "../../api/models/Reservations/SimpleReservationDto";
+import {useSnackbar} from "notistack";
 
 const userId = 1;
 
 const Reservations = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [reservations, setReservations] = useState<SimpleReservationDto[]>([]);
+    const { enqueueSnackbar } = useSnackbar();
 
-    const fetchReservations = useCallback(async () => {
-        const reservations = await getReservationsByUserId(userId);
-        setReservations(reservations);
-
-        setIsLoading(false);
+    const fetchReservations = useCallback( () => {
+        getReservationsByUserId(userId).then(reservations => {
+            setReservations(reservations);
+            setIsLoading(false);
+        }).catch(() => {
+            enqueueSnackbar("Something went wrong", { variant: 'error' });
+            setIsLoading(false);
+        });
     }, []);
 
 

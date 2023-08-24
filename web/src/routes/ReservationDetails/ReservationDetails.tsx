@@ -8,6 +8,7 @@ import {Container, Grid, Paper, Typography} from "@mui/material";
 import Title from "../../components/Common/Title";
 import {format} from "date-fns";
 import {appDateFormat} from "../../constants/Dates";
+import {useSnackbar} from "notistack";
 
 const ReservationDetails = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -15,6 +16,7 @@ const ReservationDetails = () => {
 
     const { reservationId } = useParams();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     const fetchReservationDetails = useCallback(() => {
         if (reservationId){
@@ -22,6 +24,7 @@ const ReservationDetails = () => {
                 setReservation(reservationDetails);
                 setIsLoading(false);
             }).catch(() => {
+                enqueueSnackbar("Something went wrong", { variant: 'error' });
                 setIsLoading(false);
             });
         }
@@ -30,7 +33,7 @@ const ReservationDetails = () => {
 
     useEffect(() => {
         fetchReservationDetails();
-    }, []);
+    }, [fetchReservationDetails]);
 
 
     if (isLoading){
