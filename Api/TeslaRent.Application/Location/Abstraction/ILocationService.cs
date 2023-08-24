@@ -4,5 +4,5 @@ namespace TeslaRent.Application.Location.Abstraction;
 
 public interface ILocationService
 {
-    Task<LocationVm> GetLocations();
+    Task<IEnumerable<LocationDto>> GetLocations();
 }

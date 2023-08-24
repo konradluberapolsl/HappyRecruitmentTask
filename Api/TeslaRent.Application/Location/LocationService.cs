@@ -19,16 +19,10 @@ public class LocationService : ILocationService
         _mapper = mapper;
     }
 
-    public async Task<LocationVm> GetLocations()
+    public async Task<IEnumerable<LocationDto>> GetLocations()
     {
-        var locations = await _dbContext.Locations
+        return await _dbContext.Locations
             .ProjectTo<LocationDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
-
-        return new()
-        {
-            Locations = locations,
-            Count = locations.Count
-        };
     }
 }
