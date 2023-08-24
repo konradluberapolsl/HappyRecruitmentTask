@@ -6,6 +6,7 @@ import Login from "./routes/Login/Login";
 import Register from "./routes/Register/Register";
 import Reservations from "./routes/Resrvations/Reservations";
 import ReservationDetails from "./routes/ReservationDetails/ReservationDetails";
+import CreateReservation from "./routes/CreateReservation/CreateReservation";
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
             <TopBar/>
             <Routes>
                 <Route path="/" element={<Root />} />
+                <Route path="/createReservation" element={<CreateReservation />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/reservations" element={<Reservations />} />
