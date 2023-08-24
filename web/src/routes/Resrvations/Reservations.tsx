@@ -12,6 +12,7 @@ import {Container, Paper, TableContainer} from "@mui/material";
 import {SimpleReservationDto} from "../../api/models/Reservations/SimpleReservationDto";
 import {useSnackbar} from "notistack";
 import {userId} from "../../constants/User";
+import PageLoader from "../PageLoader";
 
 
 const Reservations = () => {
@@ -35,7 +36,7 @@ const Reservations = () => {
     }, [fetchReservations]);
 
     if (isLoading){
-        return <div>loading...</div>
+        return <PageLoader/>;
     }
 
     return (

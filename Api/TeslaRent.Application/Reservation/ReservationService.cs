@@ -101,6 +101,7 @@ public class ReservationService : IReservationService
         decimal totalCost = await _calculationService.CalculateReservationTotals(reservation);
         var updatedCar = await _carService.UpdateCarMileage(reservation.CarId, request.CarMileage);
 
+        reservation.Status = ReservationStatus.Finished;
         reservation.TotalCost = totalCost;
         reservation.EndMileage = updatedCar.Mileage;
 

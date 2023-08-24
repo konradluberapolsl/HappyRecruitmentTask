@@ -1,5 +1,4 @@
 import React from 'react';
-import {ReservationDto} from "../../api/models/Reservations/ReservationDto";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {useNavigate} from "react-router-dom";
