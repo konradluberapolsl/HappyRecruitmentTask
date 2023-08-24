@@ -10,6 +10,8 @@ import {LocationDto} from "../../api/models/Locations/LocationDto";
 import {getUnavailableRentalDatesForUser} from "../../api/controllers/AvailabilityClient";
 import {getLocations} from "../../api/controllers/LocationsClient";
 import {useSnackbar} from "notistack";
+import {userId} from "../../constants/User";
+import PageLoader from "../../routes/PageLoader";
 
 dayjs.extend(utc);
 
@@ -19,7 +21,6 @@ interface StepOneProps {
     onNext: () => void;
 }
 
-const userId = 1;
 const tomorrow = dayjs().add(1, 'day');
 const StepOne: React.FC<StepOneProps> = ({ formData, setFormData, onNext }) => {
     const [unavailableDates, setUnavailableDates] = useState<DateTimeRangeDto[]>([])
@@ -99,7 +100,7 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData, onNext }) => {
     };
 
     if (isLoading){
-        return <div>loading...</div>;
+        return <PageLoader/>;
     }
 
     return (

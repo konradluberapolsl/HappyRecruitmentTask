@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const TopBar = () => {
     const navigate = useNavigate();
@@ -20,12 +20,6 @@ const TopBar = () => {
 
                     <Button variant="contained" disableElevation onClick={() => navigate("/reservations")}>
                         Your reservations
-                    </Button>
-                    <Button variant="contained" disableElevation onClick={() => navigate("/login")}>
-                        Login
-                    </Button>
-                    <Button variant="contained" disableElevation onClick={() => navigate("/register")}>
-                        Register
                     </Button>
                 </Toolbar>
             </AppBar>

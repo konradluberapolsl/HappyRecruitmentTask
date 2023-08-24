@@ -40,17 +40,13 @@ const StepTwo: React.FC<StepTwoProps> = ({ formData, setFormData, onBack, onSubm
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
     return (
         <Grid container
               direction="row"
               justifyContent="center"
               alignItems="center"
               spacing={5}>
-            {availableCars.map((car, index) => (
+            {availableCars.map((car) => (
                 <Grid key={car.id} item xs={4}>
                     <SelectableCarCard
                         car={car}

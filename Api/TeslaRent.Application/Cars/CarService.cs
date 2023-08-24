@@ -37,9 +37,7 @@ public class CarService : ICarService
             FromDate = _appDateTime.Now,
             ToDate = null
         };
-
-
-        //TODO: Add validation for location
+        
         var carLocation = new CarLocationHistory()
         {
             LocationId = request.LocationId,

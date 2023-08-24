@@ -101,6 +101,7 @@ public class ReservationService : IReservationService
         decimal totalCost = await _calculationService.CalculateReservationTotals(reservation);
         var updatedCar = await _carService.UpdateCarMileage(reservation.CarId, request.CarMileage);
 
+        reservation.Status = ReservationStatus.Finished;
         reservation.TotalCost = totalCost;
         reservation.EndMileage = updatedCar.Mileage;
 
@@ -160,11 +161,11 @@ public class ReservationService : IReservationService
         // TODO: Check if user exists
         // TODO: Check if locations exists
 
-        //TODO: HANDLE THAT!
-        if (request.StartDate < _appDateTime.Now)
-        {
-            throw new Exception("Start date must be in the future");
-        }
+        //Note: Commented that for testing purposes
+        // if (request.StartDate < _appDateTime.Now)
+        // {
+        //     throw new Exception("Start date must be in the future");
+        // }
 
         if (request.StartDate > request.EndDate)
         {
