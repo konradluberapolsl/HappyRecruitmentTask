@@ -23,6 +23,19 @@ public class TeslaRentDbContextInitializer
 
     public async Task SeedDatabase()
     {
+        if (_dbContext.Users.Any(u => u.Id == 1))
+        {
+            var user = new User()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "test@test.com"
+            };
+
+            await _dbContext.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+        }
+        
         if (!_dbContext.Locations.Any())
         {
             var locations = new List<Location>()
