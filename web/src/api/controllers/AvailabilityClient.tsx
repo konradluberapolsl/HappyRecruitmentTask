@@ -13,7 +13,7 @@ const getAvailableCarsByLocationAndTimeRange = async (locationId: number, startD
             } })).data;
 };
 
-const getUnavailableRentalDatesForUser =  async (userId: number) : Promise<DateTimeRangeDto> => {
+const getUnavailableRentalDatesForUser =  async (userId: number) : Promise<DateTimeRangeDto[]> => {
     return (await  Client.get(`${controllerName}/user/${userId}/unavailableRentalDates`)).data;
 };
 
