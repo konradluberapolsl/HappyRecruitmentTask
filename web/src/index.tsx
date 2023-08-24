@@ -5,6 +5,9 @@ import reportWebVitals from './reportWebVitals';
 import App from "./App";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./constants/ThemeMUI";
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import { SnackbarProvider } from 'notistack';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +15,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <ThemeProvider theme={theme}>
-          <App/>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <SnackbarProvider
+                  autoHideDuration={1500}
+                  maxSnack={2}
+                  anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+              >
+                      <App/>
+              </SnackbarProvider>
+          </LocalizationProvider>
       </ThemeProvider>
   </React.StrictMode>
 );
