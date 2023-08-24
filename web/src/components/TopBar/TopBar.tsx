@@ -1,8 +1,11 @@
 import React from 'react';
 import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
+import {useAuth0} from "@auth0/auth0-react";
+import {LogoutButton} from "../Buttons/LogoutButton";
 
 const TopBar = () => {
+    const { isAuthenticated } = useAuth0();
     const navigate = useNavigate();
 
     return (
@@ -18,15 +21,17 @@ const TopBar = () => {
                         TeslaRent
                     </Typography>
 
-                    <Button variant="contained" disableElevation onClick={() => navigate("/reservations")}>
-                        Your reservations
-                    </Button>
-                    <Button variant="contained" disableElevation onClick={() => navigate("/login")}>
-                        Login
-                    </Button>
-                    <Button variant="contained" disableElevation onClick={() => navigate("/register")}>
-                        Register
-                    </Button>
+
+
+                    {isAuthenticated && (
+                        <>
+                            <Button variant="contained" disableElevation onClick={() => navigate("/reservations")}>
+                                Your reservations
+                            </Button>
+                            <LogoutButton />
+                        </>
+                    )}
+
                 </Toolbar>
             </AppBar>
         </Box>
