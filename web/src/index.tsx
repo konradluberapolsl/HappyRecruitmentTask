@@ -1,15 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './index.scss'
 import reportWebVitals from './reportWebVitals';
+import App from "./App";
+import {ThemeProvider} from "@mui/material";
+import {theme} from "./constants/ThemeMUI";
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import { SnackbarProvider } from 'notistack';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+      <ThemeProvider theme={theme}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <SnackbarProvider
+                  autoHideDuration={1500}
+                  maxSnack={2}
+                  anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+              >
+                      <App/>
+              </SnackbarProvider>
+          </LocalizationProvider>
+      </ThemeProvider>
   </React.StrictMode>
 );
 

@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TopBar from "./components/TopBar/TopBar";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Root from "./routes/Root/Root";
+import Reservations from "./routes/Resrvations/Reservations";
+import ReservationDetails from "./routes/ReservationDetails/ReservationDetails";
+import CreateReservation from "./routes/CreateReservation/CreateReservation";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <BrowserRouter>
+            <TopBar/>
+            <Routes>
+                <Route path="/" element={<Root />} />
+                <Route path="/createReservation" element={<CreateReservation />} />
+                <Route path="/reservations" element={<Reservations />} />
+                <Route path="/reservations/:reservationId" element={<ReservationDetails />} />
+            </Routes>
+        </BrowserRouter>
+    );
+};
 
 export default App;
