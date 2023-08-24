@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {ReservationDto} from "../../api/models/Reservations/ReservationDto";
 import {getReservationsByUserId} from "../../api/controllers/ReservationsClient";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +10,7 @@ import ReservationListItem from "../../components/Reservations/ReservationListIt
 import {Container, Paper, TableContainer} from "@mui/material";
 import {SimpleReservationDto} from "../../api/models/Reservations/SimpleReservationDto";
 import {useSnackbar} from "notistack";
+import PageLoader from "../PageLoader";
 
 const userId = 1;
 
@@ -35,7 +35,7 @@ const Reservations = () => {
     }, [fetchReservations]);
 
     if (isLoading){
-        return <div>loading...</div>
+        return <PageLoader/>
     }
 
     return (

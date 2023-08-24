@@ -10,6 +10,7 @@ import {LocationDto} from "../../api/models/Locations/LocationDto";
 import {getUnavailableRentalDatesForUser} from "../../api/controllers/AvailabilityClient";
 import {getLocations} from "../../api/controllers/LocationsClient";
 import {useSnackbar} from "notistack";
+import PageLoader from "../../routes/PageLoader";
 
 dayjs.extend(utc);
 
@@ -99,7 +100,7 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData, onNext }) => {
     };
 
     if (isLoading){
-        return <div>loading...</div>;
+        return <PageLoader/>;
     }
 
     return (
