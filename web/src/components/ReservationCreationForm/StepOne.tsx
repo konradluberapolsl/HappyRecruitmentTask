@@ -11,6 +11,7 @@ import {getUnavailableRentalDatesForUser} from "../../api/controllers/Availabili
 import {getLocations} from "../../api/controllers/LocationsClient";
 import {useSnackbar} from "notistack";
 import {userId} from "../../constants/User";
+import PageLoader from "../../routes/PageLoader";
 
 dayjs.extend(utc);
 
@@ -99,7 +100,7 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData, onNext }) => {
     };
 
     if (isLoading){
-        return <div>loading...</div>;
+        return <PageLoader/>;
     }
 
     return (

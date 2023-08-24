@@ -9,6 +9,8 @@ import Title from "../../components/Common/Title";
 import {format} from "date-fns";
 import {appDateFormat} from "../../constants/Dates";
 import {useSnackbar} from "notistack";
+import PageLoader from "../PageLoader";
+import {userId} from "../../constants/User";
 
 const ReservationDetails = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -37,10 +39,10 @@ const ReservationDetails = () => {
 
 
     if (isLoading){
-        return <div>loading...</div>
+        return <PageLoader/>
     }
 
-    if (reservation == undefined){
+    if (reservation == undefined || reservation.user.id != userId){
         navigate("/");
         return <div />;
     }
