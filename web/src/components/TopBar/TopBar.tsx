@@ -13,7 +13,7 @@ const TopBar = () => {
                         variant="h5"
                         component="div"
                         sx={{ flexGrow: 1, color: '#FFFFFF' }}
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/createReservation')}
                     >
                         TeslaRent
                     </Typography>
