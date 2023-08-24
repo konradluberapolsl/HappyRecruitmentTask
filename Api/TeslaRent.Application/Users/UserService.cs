@@ -33,12 +33,17 @@ public class UserService : IUserService
     public async Task<UserDto> GetUser(Expression<Func<User, bool>> predicate)
     {
         var user = await _dbContext.Users.SingleOrDefaultAsync(predicate);
-        
+
         if (user == null)
         {
             throw new Exception("User not found");
         }
 
         return _mapper.Map<UserDto>(user);
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
     }
 }
