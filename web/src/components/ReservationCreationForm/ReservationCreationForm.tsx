@@ -7,10 +7,9 @@ import utc from "dayjs/plugin/utc";
 import {useSnackbar} from "notistack";
 import {createReservation} from "../../api/controllers/ReservationsClient";
 import {useNavigate} from "react-router-dom";
+import {userId} from "../../constants/User";
 
 dayjs.extend(utc);
-
-const userId = 1;
 
 const ReservationCreationForm: React.FC = () => {
     const [step, setStep] = useState<number>(1);

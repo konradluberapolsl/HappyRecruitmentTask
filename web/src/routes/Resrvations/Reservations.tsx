@@ -11,8 +11,8 @@ import ReservationListItem from "../../components/Reservations/ReservationListIt
 import {Container, Paper, TableContainer} from "@mui/material";
 import {SimpleReservationDto} from "../../api/models/Reservations/SimpleReservationDto";
 import {useSnackbar} from "notistack";
+import {userId} from "../../constants/User";
 
-const userId = 1;
 
 const Reservations = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
