@@ -12,7 +12,6 @@ const CarModelCard = ({ car }: CarInfoProps) => {
         <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     component="img"
-
                     image={car.thumbnail}
                     alt="green iguana"
                 />
