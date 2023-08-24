@@ -1,17 +1,32 @@
 import React from 'react';
-import {AppBar, Box, Toolbar, Typography} from "@mui/material";
-import {Link} from "react-router-dom";
+import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
 
 const TopBar = () => {
+    const navigate = useNavigate();
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Tesla Rent
+                    <Typography
+                        variant="h5"
+                        component="div"
+                        sx={{ flexGrow: 1, color: '#FFFFFF' }}
+                        onClick={() => navigate('/createReservation')}
+                    >
+                        TeslaRent
                     </Typography>
-                    <Link to={'/login'}>Login</Link>
-                    <Link to={'/register'}>Register</Link>
+
+                    <Button variant="contained" disableElevation onClick={() => navigate("/reservations")}>
+                        Your reservations
+                    </Button>
+                    <Button variant="contained" disableElevation onClick={() => navigate("/login")}>
+                        Login
+                    </Button>
+                    <Button variant="contained" disableElevation onClick={() => navigate("/register")}>
+                        Register
+                    </Button>
                 </Toolbar>
             </AppBar>
         </Box>
