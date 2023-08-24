@@ -21,12 +21,6 @@ const TopBar = () => {
                     <Button variant="contained" disableElevation onClick={() => navigate("/reservations")}>
                         Your reservations
                     </Button>
-                    <Button variant="contained" disableElevation onClick={() => navigate("/login")}>
-                        Login
-                    </Button>
-                    <Button variant="contained" disableElevation onClick={() => navigate("/register")}>
-                        Register
-                    </Button>
                 </Toolbar>
             </AppBar>
         </Box>
