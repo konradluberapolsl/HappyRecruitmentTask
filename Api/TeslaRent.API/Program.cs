@@ -1,4 +1,10 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using TeslaRent.API.Auth;
+using TeslaRent.API.Auth.Middleware;
+using TeslaRent.API.Auth.Services;
+using TeslaRent.API.Configuration;
 using TeslaRent.Application;
+using TeslaRent.Application.Common.Abstraction;
 using TeslaRent.Infrastructure;
 using TeslaRent.Infrastructure.DAL;
 
@@ -11,7 +17,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
+
+builder.Services.AddAuth0Authentication(builder.Configuration);
+
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
 var origins = builder.Configuration["origins"].Split(";");
 builder.Services.AddCors(options =>
@@ -58,11 +70,15 @@ if (app.Environment.IsProduction() == false)
     }
 }
 
-app.UseCors(defaultCorsPolicy);
-
-app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors(defaultCorsPolicy);
+
+app.UseMiddleware<GetCurrentUserMiddleware>();
+
+app.UseHttpsRedirection();
 
 app.MapControllers();
 
