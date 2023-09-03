@@ -8,5 +8,5 @@ public interface IUserService
 {
     Task<UserDto> CreateUser(CreateUserRequest createUserRequest);
     Task<UserDto> GetUser(Expression<Func<Domain.Entities.User, bool>> predicate);
-    Task<User?> GetUserByEmail(string email);
+    Task<UserDto?> GetUserByEmail(string email);
 }

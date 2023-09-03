@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using TeslaRent.Application.Common.Abstraction;
 using TeslaRent.Application.Users.Abstraction;
@@ -42,8 +43,9 @@ public class UserService : IUserService
         return _mapper.Map<UserDto>(user);
     }
 
-    public async Task<User?> GetUserByEmail(string email)
+    public async Task<UserDto?> GetUserByEmail(string email)
     {
-        return await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+        return await _dbContext.Users.ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+            .SingleOrDefaultAsync(u => u.Email == email);
     }
 }
