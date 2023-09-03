@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeslaRent.Application.Location.Abstraction;
 using TeslaRent.Application.Location.Models;
@@ -14,8 +15,9 @@ public class LocationsController : ControllerBase
     {
         _locationService = locationService;
     }
-
+    
     [HttpGet]
+    [Authorize]
     public async Task<IEnumerable<LocationDto>> GetLocations()
     {
         return await _locationService.GetLocations();

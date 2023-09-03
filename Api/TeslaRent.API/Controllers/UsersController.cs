@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TeslaRent.Application.Common.Abstraction;
 using TeslaRent.Application.Users.Abstraction;
 using TeslaRent.Application.Users.Models;
 
@@ -9,10 +10,12 @@ namespace TeslaRent.API.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly ICurrentUserService _currentUserService;
 
-    public UsersController(IUserService userService)
+    public UsersController(IUserService userService, ICurrentUserService currentUserService)
     {
         _userService = userService;
+        _currentUserService = currentUserService;
     }
 
     [HttpPost]
@@ -25,5 +28,11 @@ public class UsersController : ControllerBase
     public async Task<UserDto> GetUserById(int id)
     {
         return await _userService.GetUser(u => u.Id == id);
+    }
+
+    [HttpGet("loggedUser")]
+    public async Task<UserDto> GetLoggedInUser()
+    {
+        return await _userService.GetUser(u => u.Id == _currentUserService.UserId);
     }
 }
