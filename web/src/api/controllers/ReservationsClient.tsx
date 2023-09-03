@@ -17,4 +17,8 @@ const getReservationsByUserId = async (userId: number) : Promise<SimpleReservati
     return (await Client.get(`${controllerName}/user/${userId}`)).data;
 }
 
-export { createReservation, getReservationById, getReservationsByUserId }
+const getUsersReservations = async () : Promise<SimpleReservationDto[]> => {
+    return (await Client.get(`${controllerName}/user`)).data;
+}
+
+export { createReservation, getReservationById, getReservationsByUserId, getUsersReservations }

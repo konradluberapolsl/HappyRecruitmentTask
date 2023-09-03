@@ -43,7 +43,7 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData, onNext }) => {
             enqueueSnackbar("Something went wrong", { variant: 'error' });
         });
 
-        getUnavailableRentalDatesForUser(userId).then((unavailableDates) =>{
+        getUnavailableRentalDatesForUser().then((unavailableDates) =>{
             setUnavailableDates(unavailableDates);
         }).catch(() => {
             enqueueSnackbar("Something went wrong", { variant: 'error' });

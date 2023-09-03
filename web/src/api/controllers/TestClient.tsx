@@ -6,4 +6,8 @@ const ping = async (): Promise<string> => {
     return (await Client.get(`${controllerName}/ping`)).data;
 };
 
-export {ping};
+const pingAuth = async (): Promise<string> => {
+  return ( await  Client.get(`${controllerName}/pingAuth`)).data;
+};
+
+export {ping, pingAuth};
