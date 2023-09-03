@@ -19,6 +19,7 @@ public class ReservationService : IReservationService
     private readonly ICalculationService _calculationService;
     private readonly IAppDateTime _appDateTime;
     private readonly IMapper _mapper;
+    private readonly ICurrentUserService _currentUserService;
 
 
     public ReservationService(
@@ -26,7 +27,8 @@ public class ReservationService : IReservationService
         IAvailabilityService availabilityService, 
         IAppDateTime appDateTime,
         IMapper mapper, ICarService carService, 
-        ICalculationService calculationService)
+        ICalculationService calculationService, 
+        ICurrentUserService currentUserService)
     {
         _dbContext = dbContext;
         _availabilityService = availabilityService;
@@ -34,6 +36,7 @@ public class ReservationService : IReservationService
         _mapper = mapper;
         _carService = carService;
         _calculationService = calculationService;
+        _currentUserService = currentUserService;
     }
 
     public async Task<ReservationDto> CreateReservation(CreateReservationRequest request)
@@ -128,6 +131,11 @@ public class ReservationService : IReservationService
         {
             throw new Exception("Reservation not found");
         }
+        
+        if (reservation.UserId != _currentUserService.UserId)
+        {
+            throw new Exception("Reservation does not belong to the user");
+        }
 
         return _mapper.Map<ReservationDto>(reservation);
     }
@@ -160,6 +168,11 @@ public class ReservationService : IReservationService
         // TODO: Check if user exists
         // TODO: Check if locations exists
 
+        if (request.UserId != _currentUserService.UserId)
+        {
+            throw new Exception("Can not create reservation for other user");
+        }
+        
         //TODO: HANDLE THAT!
         if (request.StartDate < _appDateTime.Now)
         {
