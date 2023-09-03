@@ -8,11 +8,12 @@ const httpClient = axios.create({
     },
 });
 
-export const addInterceptor = (getAccessTokenSilently: any) => {
-    httpClient.interceptors.request.use(async (config) => {
-        const token = await getAccessTokenSilently();
-        config.headers.Authorization = `Bearer ${token}`;
-        config.baseURL = data.ApiUrl;
+export const addAuthInterceptor = (accessToken: string) => {
+    console.log("Adding interceptors")
+    httpClient.interceptors.request.use( (config) => {
+        if (config && config.headers) {
+            config.headers["Authorization"] = `Bearer ${accessToken}`;
+        }
         return config;
     });
 };
